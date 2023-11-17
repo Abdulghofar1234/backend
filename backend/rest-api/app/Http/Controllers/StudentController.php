@@ -26,25 +26,26 @@ class StudentController extends Controller
 		}
 	}
 
-	public function store(Request $request) 
-	{
+	public function store(Request $request)
+    {
+        #validate
+        $validateData = $request->validate([
+            'nama' => 'required',
+            'nim' => 'numeric|required',
+            'email' => 'email|required',
+            'jurusan' => 'required'
+        ]);
 
-		// $input = [
-		// 	'nama' => $request->nama,
-		// 	'nim' => $request->nim,
-		// 	'email' => $request->email,
-		// 	'jurusan' => $request->jurusan
-		// ];
+        $student = Student::create($validateData);
 
-		$student = Student::create($request->all());
+        $data = [
+            'message' => 'Student is created succesfully',
+            'data' => $student,
+        ];
 
-		$response = [
-			'message' => 'Data Student Berhasil Dibuat',
-			'data' => $student,
-		];
-
-		return response()->json($response, 201);
-	}
+        // mengembalikan data (json) dan kode 201
+        return response()->json($data, 201);
+    }
 
 	public function show($id)
 	{
