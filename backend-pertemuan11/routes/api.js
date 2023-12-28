@@ -1,16 +1,22 @@
-const StudentController = require('../controllers/StudentController.js');
-const express = require('express');
+// import Student Controller
+const StudentController = require("../controllers/StudentController");
 
+// import express
+const express = require("express");
+
+// make an object router
 const router = express.Router();
 
-// mendefinisikan route
-router.get('/', (req, res) => {
-    res.send('Hai Express!');
+// make home routing
+router.get("/", (req, res) => {
+  res.send("Hello Ghofar");
 });
 
-// Routing student
-router.get('/students', StudentController.index);
-router.post('/students', StudentController.store);
+// Routing for Students
+router.get("/students", StudentController.index);
+router.post("/students", StudentController.store);
+router.put("/students/:id", StudentController.update);
+router.delete("/students/:id", StudentController.destroy);
 
-// export router
+// export routing
 module.exports = router;
